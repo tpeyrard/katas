@@ -62,19 +62,18 @@ public class simpleListsTest {
     @Test
     public void
     it_can_add_several_values_in_the_list() {
-        list.add("Thomas");
-        list.add("Maxence");
-        list.add("Florine");
-        assertThat(list.values()).isEqualTo(new String[]{"Thomas", "Maxence", "Florine"});
+        list.add(FIRST_VALUE);
+        list.add(SECOND_VALUE);
+        list.add(THIRD_VALUE);
+        assertThat(list.values()).isEqualTo(new String[]{FIRST_VALUE, SECOND_VALUE, THIRD_VALUE});
     }
 
     @Test
     public void
     it_finds_value_present_in_the_list() {
         list.add(FIRST_VALUE);
-        String value = "Maxence";
-        list.add(value);
-        assertThat(list.find(value).value()).isEqualTo(value);
+        list.add(SECOND_VALUE);
+        assertThat(list.find(SECOND_VALUE).value()).isEqualTo(SECOND_VALUE);
     }
 
     @Test
