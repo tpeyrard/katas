@@ -61,25 +61,33 @@ public final class DoubleLinkedList implements SimpleList {
     public void delete(SimpleListNode toDelete) {
         Node current = head;
         if (toDelete.equals(head)) {
-            head = head.next;
-            if (head != null && head.next != null) {
-                head.next.previous = head;
-            }
-            size--;
+            deleteHead();
         } else {
             while (current != null) {
                 if (current.equals(toDelete)) {
-                    Node previous = current.previous;
-                    if (current.next != null) {
-                        current.next.previous = previous;
-                    }
-                    previous.next = current.next;
-                    size--;
+                    deleteNode(current);
                     break;
                 }
                 current = current.next;
             }
         }
+    }
+
+    private void deleteNode(Node current) {
+        Node previous = current.previous;
+        if (current.next != null) {
+            current.next.previous = previous;
+        }
+        previous.next = current.next;
+        size--;
+    }
+
+    private void deleteHead() {
+        head = head.next;
+        if (head != null && head.next != null) {
+            head.next.previous = head;
+        }
+        size--;
     }
 
     @Override
