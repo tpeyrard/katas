@@ -18,13 +18,18 @@ public class simpleListsTest {
     private static final String THIRD_VALUE = "ThirdValue";
     private static final String SECOND_VALUE = "SecondValue";
 
-    @Parameterized.Parameter
+    @Parameterized.Parameter(value = 0)
+    public String name;
+    @Parameterized.Parameter(value = 1)
     public SimpleList list;
+    @Parameterized.Parameter(value = 2)
+    public Class<LinkedList.Node> nodeClass;
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {new LinkedList()}
+                {"SimpleLinkedList", new LinkedList(), LinkedList.Node.class},
+                {"DoubleLinkedList", new DoubleLinkedList(), DoubleLinkedList.Node.class}
         });
     }
 
@@ -115,9 +120,10 @@ public class simpleListsTest {
     @Test
     public void
     node_element_should_implement_equals_and_hashcode() {
-        EqualsVerifier.forClass(LinkedList.Node.class)
+        nodeClass = LinkedList.Node.class;
+        EqualsVerifier.forClass(nodeClass)
                 .withIgnoredFields("next")
-                .withPrefabValues(LinkedList.Node.class,
+                .withPrefabValues(nodeClass,
                         list.add(FIRST_VALUE).find(FIRST_VALUE),
                         list.add(SECOND_VALUE).find(SECOND_VALUE))
                 .verify();
