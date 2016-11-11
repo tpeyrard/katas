@@ -51,7 +51,25 @@ public class LinkedList implements SimpleList {
         return values;
     }
 
-    public class Node {
+    public void delete(SimpleListNode toDelete) {
+        Node previous = head;
+        Node current = head;
+        while (current != null) {
+            if (current.equals(toDelete)) {
+                previous.next = current.next;
+                size--;
+                break;
+            }
+            previous = current;
+            current = current.next;
+        }
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public class Node implements SimpleListNode {
         private String value;
         private Node next;
 

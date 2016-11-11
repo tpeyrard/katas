@@ -13,6 +13,9 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(Parameterized.class)
 public class simpleListsTest {
 
+    public static final String FIRST_VALUE = "FirstValue";
+    public static final String THIRD_VALUE = "ThirdValue";
+    public static final String SECOND_VALUE = "SecondValue";
     @Parameterized.Parameter
     public SimpleList list;
 
@@ -36,6 +39,19 @@ public class simpleListsTest {
 
     @Test
     public void
+    a_list_of_size_zero_is_empty() {
+        assertThat(list.isEmpty()).isTrue();
+    }
+
+    @Test
+    public void
+    a_list_with_element_is_not_empty() {
+        list.add(FIRST_VALUE);
+        assertThat(list.isEmpty()).isFalse();
+    }
+
+    @Test
+    public void
     it_can_add_a_value_in_the_list() {
         String value = "Thomas";
         list.add(value);
@@ -54,7 +70,7 @@ public class simpleListsTest {
     @Test
     public void
     it_finds_value_present_in_the_list() {
-        list.add("FirstValue");
+        list.add(FIRST_VALUE);
         String value = "Maxence";
         list.add(value);
         assertThat(list.find(value).value()).isEqualTo(value);
@@ -62,10 +78,36 @@ public class simpleListsTest {
 
     @Test
     public void
-    it_can_delete() {
-        //list.delete();
+    it_can_delete_first_element() {
+        list.add(FIRST_VALUE);
+        list.delete(list.find(FIRST_VALUE));
+
+        assertThat(list.isEmpty()).isTrue();
     }
 
+    @Test
+    public void
+    it_can_delete_any() {
+        list.add(FIRST_VALUE);
+        list.add(SECOND_VALUE);
+        list.add(THIRD_VALUE);
+
+        list.delete(list.find(SECOND_VALUE));
+
+        assertThat(list.values()).isEqualTo(new String[]{FIRST_VALUE, THIRD_VALUE});
+    }
+
+    @Test
+    public void
+    it_can_delete_last_element() {
+        list.add(FIRST_VALUE);
+        list.add(SECOND_VALUE);
+        list.add(THIRD_VALUE);
+
+        list.delete(list.find(THIRD_VALUE));
+
+        assertThat(list.values()).isEqualTo(new String[]{FIRST_VALUE, SECOND_VALUE});
+    }
 
     private void
     acceptance_tests() {

@@ -8,4 +8,8 @@ public interface SimpleList {
     void reset();
 
     String[] values();
+
+    void delete(SimpleListNode node);
+
+    boolean isEmpty();
 }
