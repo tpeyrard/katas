@@ -1,2 +1,2 @@
 # katas
-Katas for fun
+Katas for fun from [Code Kata](http://codekata.com/).
