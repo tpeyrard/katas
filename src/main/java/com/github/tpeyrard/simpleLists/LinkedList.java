@@ -7,7 +7,7 @@ public class LinkedList implements SimpleList {
     private Node head = null;
     private int size = 0;
 
-    public Node find(String searched) {
+    public SimpleListNode find(String searched) {
         Node current = head;
         while (current != null) {
             if (current.value.equals(searched)) {
@@ -19,7 +19,7 @@ public class LinkedList implements SimpleList {
         return null;
     }
 
-    public LinkedList add(String value) {
+    public SimpleList add(String value) {
         Node newValue = new Node(value);
         if (head == null) {
             head = newValue;
@@ -40,16 +40,14 @@ public class LinkedList implements SimpleList {
     }
 
     public String[] values() {
-        if (head == null) {
-            return new String[size];
-        }
         String[] values = new String[size];
-        Node currentNode = head;
+        Node current = head;
         int i = 0;
-        do {
-            values[i++] = currentNode.value;
-            currentNode = currentNode.next;
-        } while (currentNode != null);
+        while (current != null) {
+            values[i] = current.value;
+            current = current.next;
+            i++;
+        }
         return values;
     }
 

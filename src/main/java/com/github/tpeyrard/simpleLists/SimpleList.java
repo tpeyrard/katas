@@ -1,9 +1,9 @@
 package com.github.tpeyrard.simpleLists;
 
 public interface SimpleList {
-    LinkedList.Node find(String absent);
+    SimpleListNode find(String absent);
 
-    LinkedList add(String value);
+    SimpleList add(String value);
 
     void reset();
 
