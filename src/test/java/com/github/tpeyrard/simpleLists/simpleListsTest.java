@@ -66,7 +66,7 @@ public class simpleListsTest {
         list.add(FIRST_VALUE);
         list.add(SECOND_VALUE);
         list.add(THIRD_VALUE);
-        assertThat(list.values()).isEqualTo(new String[]{FIRST_VALUE, SECOND_VALUE, THIRD_VALUE});
+        assertThat(list.values()).isEqualTo(values(FIRST_VALUE, SECOND_VALUE, THIRD_VALUE));
     }
 
     @Test
@@ -74,6 +74,7 @@ public class simpleListsTest {
     it_finds_value_present_in_the_list() {
         list.add(FIRST_VALUE);
         list.add(SECOND_VALUE);
+        list.add(THIRD_VALUE);
         assertThat(list.find(SECOND_VALUE).value()).isEqualTo(SECOND_VALUE);
     }
 
@@ -81,21 +82,22 @@ public class simpleListsTest {
     public void
     it_can_delete_first_element() {
         list.add(FIRST_VALUE);
+        list.add(SECOND_VALUE);
         list.delete(list.find(FIRST_VALUE));
 
-        assertThat(list.isEmpty()).isTrue();
+        assertThat(list.values()).isEqualTo(values(SECOND_VALUE));
     }
 
     @Test
     public void
-    it_can_delete_any() {
+    it_can_delete_any_value() {
         list.add(FIRST_VALUE);
         list.add(SECOND_VALUE);
         list.add(THIRD_VALUE);
 
         list.delete(list.find(SECOND_VALUE));
 
-        assertThat(list.values()).isEqualTo(new String[]{FIRST_VALUE, THIRD_VALUE});
+        assertThat(list.values()).isEqualTo(values(FIRST_VALUE, THIRD_VALUE));
     }
 
     @Test
@@ -107,7 +109,7 @@ public class simpleListsTest {
 
         list.delete(list.find(THIRD_VALUE));
 
-        assertThat(list.values()).isEqualTo(new String[]{FIRST_VALUE, SECOND_VALUE});
+        assertThat(list.values()).isEqualTo(values(FIRST_VALUE, SECOND_VALUE));
     }
 
     @Test
@@ -121,33 +123,39 @@ public class simpleListsTest {
                 .verify();
     }
 
-    private void
+    @Test
+    public void
     acceptance_tests() {
-        /*
-        assert_nil(list.find("fred"));
-        list.add("fred")
-        assert_equal("fred", list.find("fred").value())
-        assert_nil(list.find("wilma"));
+
+        assertThat(list.find("fred")).isNull();
+        list.add("fred");
+        assertThat(list.find("fred").value()).isEqualTo("fred");
+        assertThat(list.find("wilma")).isNull();
         list.add("wilma");
-        assert_equal("fred", list.find("fred").value());
-        assert_equal("wilma", list.find("wilma").value());
-        assert_equal(["fred", "wilma"],list.values());
-;;
-        list = List.new;
-        list.add("fred")
-        list.add("wilma")
-        list.add("betty")
-        list.add("barney")
-        assert_equal(["fred", "wilma", "betty", "barney"],list.values())
+        assertThat(list.find("fred").value()).isEqualTo("fred");
+        assertThat(list.find("wilma").value()).isEqualTo("wilma");
+        assertThat(list.values()).isEqualTo(values("fred", "wilma"));
+
+
+        list.reset();
+        list.add("fred");
+        list.add("wilma");
+        list.add("betty");
+        list.add("barney");
+        assertThat(list.values()).isEqualTo(values("fred", "wilma", "betty", "barney"));
         list.delete(list.find("wilma"));
-        assert_equal(["fred", "betty", ";barney"],list.values())
-        list.delete(list.find("barney"));;
-        assert_equal(["fred", "betty"],list.values())
+        assertThat(list.values()).isEqualTo(values("fred", "betty", "barney"));
+        list.delete(list.find("barney"));
+
+        assertThat(list.values()).isEqualTo(values("fred", "betty"));
         list.delete(list.find("fred"));
-        assert_equal(["betty"], list.values())
-        list.delete(list.find("betty"))
-        assert_equal([],list.values())
-        */
+        assertThat(list.values()).isEqualTo(values("betty"));
+        list.delete(list.find("betty"));
+        assertThat(list.values()).isEqualTo(values());
+    }
+
+    private String[] values(String... values) {
+        return values;
     }
 
 

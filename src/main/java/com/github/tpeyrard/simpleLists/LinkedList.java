@@ -54,16 +54,21 @@ public class LinkedList implements SimpleList {
     }
 
     public void delete(SimpleListNode toDelete) {
-        Node previous = head;
-        Node current = head;
-        while (current != null) {
-            if (current.equals(toDelete)) {
-                previous.next = current.next;
-                size--;
-                break;
+        if (toDelete.equals(head)) {
+            head = head.next;
+            size--;
+        } else {
+            Node previous = head;
+            Node current = head;
+            while (current != null) {
+                if (current.equals(toDelete)) {
+                    previous.next = current.next;
+                    size--;
+                    break;
+                }
+                previous = current;
+                current = current.next;
             }
-            previous = current;
-            current = current.next;
         }
     }
 
