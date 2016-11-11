@@ -1,5 +1,6 @@
 package com.github.tpeyrard.simpleLists;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -107,6 +108,17 @@ public class simpleListsTest {
         list.delete(list.find(THIRD_VALUE));
 
         assertThat(list.values()).isEqualTo(new String[]{FIRST_VALUE, SECOND_VALUE});
+    }
+
+    @Test
+    public void
+    node_element_should_implement_equals_and_hashcode() {
+        EqualsVerifier.forClass(LinkedList.Node.class)
+                .withIgnoredFields("next")
+                .withPrefabValues(LinkedList.Node.class,
+                        list.add(FIRST_VALUE).find(FIRST_VALUE),
+                        list.add(SECOND_VALUE).find(SECOND_VALUE))
+                .verify();
     }
 
     private void

@@ -1,5 +1,7 @@
 package com.github.tpeyrard.simpleLists;
 
+import java.util.Objects;
+
 public class LinkedList implements SimpleList {
 
     private Node head = null;
@@ -69,8 +71,8 @@ public class LinkedList implements SimpleList {
         return size == 0;
     }
 
-    public class Node implements SimpleListNode {
-        private String value;
+    public final class Node implements SimpleListNode {
+        private final String value;
         private Node next;
 
         public Node(String value) {
@@ -84,6 +86,19 @@ public class LinkedList implements SimpleList {
         @Override
         public String toString() {
             return "[value='" + value + "', next='" + next + "']";
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Node node = (Node) o;
+            return Objects.equals(value, node.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(value);
         }
     }
 }
