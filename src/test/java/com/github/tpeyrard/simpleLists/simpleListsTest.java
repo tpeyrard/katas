@@ -13,9 +13,10 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @RunWith(Parameterized.class)
 public class simpleListsTest {
 
-    public static final String FIRST_VALUE = "FirstValue";
-    public static final String THIRD_VALUE = "ThirdValue";
-    public static final String SECOND_VALUE = "SecondValue";
+    private static final String FIRST_VALUE = "FirstValue";
+    private static final String THIRD_VALUE = "ThirdValue";
+    private static final String SECOND_VALUE = "SecondValue";
+
     @Parameterized.Parameter
     public SimpleList list;
 
