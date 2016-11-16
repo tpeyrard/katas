@@ -3,6 +3,8 @@ package com.github.tpeyrard;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class LinkedHashMapTest {
@@ -64,6 +66,7 @@ public class LinkedHashMapTest {
         map.remove("Big");
 
         assertThat(map.get("Big")).isNull();
+        assertThat(map.keys).isEqualTo(Arrays.asList("First", "Second"));
     }
 
     private String[] keys(String... keys) {
